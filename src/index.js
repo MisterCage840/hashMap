@@ -60,8 +60,8 @@ const hashMap = (capacity = 3, loadFactor = 0.75) => {
     const bucket = this.buckets[index];
 
     for (let i = 0; i < bucket.length; i++) {
-      if (pair[i][0] === key) {
-        bucket.slice(i, 1);
+      if (bucket[i][0] === key) {
+        bucket.splice(i, 1);
         this.size--;
         return true;
       }
@@ -82,14 +82,14 @@ const hashMap = (capacity = 3, loadFactor = 0.75) => {
   };
 
   const keys = () => {
-    let keysArray;
+    let keysArray = [];
     for (let bucket of this.buckets)
-      for (let pair of bucket) keysArray.push(pair[0]);
+      for (let i = 0; i < bucket.length; i++) keysArray.push(bucket[i][0]);
     return keysArray;
   };
 
   const values = () => {
-    let valuesArray;
+    let valuesArray = [];
     for (let bucket of this.buckets)
       for (let pair of bucket) valuesArray.push(pair[1]);
     return valuesArray;
@@ -140,7 +140,7 @@ const hashMap = (capacity = 3, loadFactor = 0.75) => {
 
 const h1 = hashMap();
 
-h1.set("md", "supervisor");
+h1.set("mhmd", "supervisor");
 console.log(h1.getCapacity());
 h1.set("mahesh", "assorter");
 console.log(h1.getCapacity());
@@ -151,3 +151,10 @@ h1.set("mahesh", "manager");
 h1.set("mahesh", "food Chef");
 
 console.log(h1.toString());
+console.log(h1.remove("mhmd"));
+
+console.log(h1.toString());
+console.log(h1.length());
+
+console.log(h1.keys());
+console.log(h1.values());
